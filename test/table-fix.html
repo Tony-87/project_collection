@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    
+    table{
+        border:solid 1px #f00;
+        height:100%;
+    }
+    .table-box{
+        border:solid 1px #f0F;
+        width:90%;
+        max-width: 700px;
+        height:150px;
+        overflow: hidden;
+    }
+
+    .table-left{
+        float:left;
+        display: none;
+    }
+    .table-center{
+        min-width: 500px;
+        margin-left: 100px;
+        margin-right: 100px;
+        border:solid 2px #0F0;
+        overflow:scroll;
+    }
+    .table-center td{
+        width:150px;
+    }
+    .table-right{
+        display: none;
+        float:left;
+    }
+
+    .box{
+        display: none;
+        width:90%;
+        border:solid 2px #f00;
+        height:200px;
+        min-width: 720px;
+    }
+    .box-left{
+        float:left;
+        width:100px;
+        border:solid 1px #00F;
+        height:100%;
+    }
+    .box-center{
+        /* float:left; */
+        margin: 0 110px 0 110px;
+        border:solid 1px #0F0;
+        height:100%;
+        overflow: auto;
+        /* min-width: 500px;; */
+    }
+    .box-center .tableCenter{
+        width:600px;
+        overflow: auto;
+    }
+    .box-right{
+        float:right;
+        width:100px;
+        border:solid 1px #00F;
+        height:100%;
+    }
+
+    .panel{
+        width:90%;
+        border:solid 2px #f00;
+        height:200px;
+        box-sizing: border-box;
+       overflow-x:scroll;
+       overflow-y:hidden;
+       padding:0 110px;
+       position: relative;
+    }
+    .panel-left{
+        width:100px;
+        height:100%;
+        border:solid 1px #00F;
+       position: absolute;
+       left:0;
+       top:0;
+    }
+    .panel-left .left-fix{
+        position: fixed;
+        border:solid 1px #00F;
+        background-color: #FFF;
+        width:100px;
+        height:180px;
+    }
+    .panel-center{
+        border:solid 2px #0f0;
+        height:100%;
+        width:500px;
+        /* padding:0 110px; */
+       /* overflow-x:scroll; */
+       /* overflow-y: hidden; */
+    }
+
+    .panel-center .tableCenter{
+        width:800px;
+    }
+
+    </style>
+</head>
+<body>
+    
+    <div class="panel">
+        <div class="panel-left">
+            <div class="left-fix">
+                左边内容
+            </div>
+        </div>
+        <div class="panel-right">
+
+        </div>
+        <div class="panel-center">
+            <table class="tableCenter">
+                <thead>
+                    <tr>
+                        <th>姓名</th>
+                        <th>年龄</th>
+                        <th>学校</th>
+                        <th>性别</th>
+                        <th>籍贯</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>姓名一</td>
+                        <td>年龄一</td>
+                        <td>清华大学</td>
+                        <td>男</td>
+                        <td>北京</td>
+                    </tr>
+                    <tr>
+                        <td>姓名一</td>
+                        <td>年龄一</td>
+                        <td>清华大学</td>
+                        <td>男</td>
+                        <td>北京</td>
+                    </tr>
+                    <tr>
+                        <td>姓名一</td>
+                        <td>年龄一</td>
+                        <td>清华大学</td>
+                        <td>男</td>
+                        <td>北京</td>
+                    </tr>
+                    <tr>
+                        <td>姓名一</td>
+                        <td>年龄一</td>
+                        <td>清华大学</td>
+                        <td>男</td>
+                        <td>北京</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <br>
+    <hr>
+    <br>
+
+
+    <div class="table-box">
+
+        <table class="table-left">
+            <thead>
+                <tr>
+                    <th>日期</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>2001-01-01</td>
+                </tr>
+                <tr>
+                    <td>2001-01-01</td>
+                </tr>
+                <tr>
+                    <td>2001-01-01</td>
+                </tr>
+                <tr>
+                    <td>2001-01-01</td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table-center">
+            <thead>
+                <tr>
+                    <th>姓名</th>
+                    <th>年龄</th>
+                    <th>学校</th>
+                    <th>性别</th>
+                    <th>籍贯</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>姓名一</td>
+                    <td>年龄一</td>
+                    <td>清华大学</td>
+                    <td>男</td>
+                    <td>北京</td>
+                </tr>
+                <tr>
+                    <td>姓名一</td>
+                    <td>年龄一</td>
+                    <td>清华大学</td>
+                    <td>男</td>
+                    <td>北京</td>
+                </tr>
+                <tr>
+                    <td>姓名一</td>
+                    <td>年龄一</td>
+                    <td>清华大学</td>
+                    <td>男</td>
+                    <td>北京</td>
+                </tr>
+                <tr>
+                    <td>姓名一</td>
+                    <td>年龄一</td>
+                    <td>清华大学</td>
+                    <td>男</td>
+                    <td>北京</td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table-right">
+            <thead>
+                <tr>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <span>查看</span>
+                        <span>通过</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>查看</span>
+                        <span>通过</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>查看</span>
+                        <span>通过</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>查看</span>
+                        <span>通过</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <br>
+    <hr>
+    <br>
+
+    <div class="box">
+        <div class="box-left">
+
+        </div>
+        <div class="box-right">
+            
+        </div>
+        <div class="box-center">
+            <table class="tableCenter">
+                <thead>
+                    <tr>
+                        <th>姓名</th>
+                        <th>年龄</th>
+                        <th>学校</th>
+                        <th>性别</th>
+                        <th>籍贯</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>姓名一</td>
+                        <td>年龄一</td>
+                        <td>清华大学</td>
+                        <td>男</td>
+                        <td>北京</td>
+                    </tr>
+                    <tr>
+                        <td>姓名一</td>
+                        <td>年龄一</td>
+                        <td>清华大学</td>
+                        <td>男</td>
+                        <td>北京</td>
+                    </tr>
+                    <tr>
+                        <td>姓名一</td>
+                        <td>年龄一</td>
+                        <td>清华大学</td>
+                        <td>男</td>
+                        <td>北京</td>
+                    </tr>
+                    <tr>
+                        <td>姓名一</td>
+                        <td>年龄一</td>
+                        <td>清华大学</td>
+                        <td>男</td>
+                        <td>北京</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+      
+    </div>
+
+
+    <br>
+    <hr>
+    <br>
+
+   
+
+</body>
+</html>

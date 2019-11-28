@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .panel{
+            width:90%;
+            height:200px;
+            border: solid 1px #f00;
+            position: relative;
+        }
+        .panel-left{
+            float:left;
+            width:100px;
+            height:100%;
+            border: solid 1px #00F;
+        }
+        .panel-center{
+            /* float: left; */
+            width:500px;
+            height: 100%;
+            
+            border: solid 1px #0F0;
+            overflow-x: scroll;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="panel">
+        <div class="panel-left">
+
+        </div>
+        <div class="panel-center">
+            这个字在哪
+            </div>
+    </div>
+
+</body>
+</html>

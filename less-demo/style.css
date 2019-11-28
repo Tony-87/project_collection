@@ -1,0 +1,12 @@
+.demo1-page {
+  background-color: #CCC;
+  box-shadow: 0 0 5px 5px #F00;
+}
+.demo1-page h1 {
+  color: #f00;
+  font-size: 20px;
+  font-family: '宋体';
+}
+.demo1-page h3 {
+  color: #00F;
+}

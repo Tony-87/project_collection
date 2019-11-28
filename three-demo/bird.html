@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script src="js/jquery.js"></script>
+    <script src="js/three.js"></script>
+    
+    <script>
+    var BoidAnimation = (function(THREE) {
+    'use strict';
+
+    // -----
+    function Point(pos) {
+        this.vec = new THREE.Vector3(pos.x, pos.y, pos.z);
+        this.speed = 0.5;
+    }
+    Point.prototype.moveTo = function(target) {
+        var dx = target.vec.x - this.vec.x;
+        var dy = target.vec.y - this.vec.y;
+        var dz = target.vec.z - this.vec.z;
+        this.vec.x += dx * this.speed;
+        this.vec.y += dy * this.speed;
+        this.vec.z += dz * this.speed;
+    };
+
+    function Node(points) {
+        this.points = points;
+        this.lines = [];
+        this.offset = -0.75 + Math.random() * 1.5;
+    }
+
+    function Boid(nodes) {
+        this.nodes = nodes;
+        this.headRadius = 1;
+        this.angle = 0;
+    }
+    Boid.prototype.init = function(scene) {
+        this.headMesh = new THREE.Mesh(
+            new THREE.SphereGeometry(this.headRadius, 20, 20),
+            new THREE.MeshBasicMaterial({
+                color: 0xbdc3c7
+            })
+        );
+        this.headMesh.position.set(0, 0, 0);
+        scene.add(this.headMesh);
+
+        var lineMaterial = new THREE.LineBasicMaterial({
+            color: 0xf39c12
+        });
+        this.nodes.forEach(function(node, i) {
+            node.points.forEach(function(point, n) {
+                var lineGeometry = new THREE.Geometry();
+                var nextPoint = node.points[n + 1];
+                if (nextPoint) {
+                    lineGeometry.vertices.push(point.vec);
+                    lineGeometry.vertices.push(nextPoint.vec);
+                }
+                var line = new THREE.Line(lineGeometry, lineMaterial);
+                scene.add(line);
+                node.lines.push(line);
+            });
+        });
+    };
+    Boid.prototype.update = function() {
+        var self = this;
+
+        this.headMesh.position.x = Math.sin(boid.angle + (boid.angle * 0.005)) * 10;
+        this.headMesh.position.y = Math.sin(boid.angle * 2.225) * 4 + 5;
+        this.headMesh.position.z = Math.cos(boid.angle * 1.2) * 5;
+        this.angle += 0.05;
+
+        this.nodes.forEach(function(node, i) {
+            node.points.forEach(function(point, n) {
+                var nextPoint = node.points[n + 1];
+                if (nextPoint) {
+                    point.moveTo(nextPoint);
+                } else {
+                    point.moveTo({
+                        vec: {
+                            x: self.headMesh.position.x + node.offset,
+                            y: self.headMesh.position.y + Math.cos(n),
+                            z: self.headMesh.position.z
+                        }
+                    });
+                }
+                if (node.lines[n].geometry.vertices[0]) {
+                    node.lines[n].geometry.verticesNeedUpdate = true;
+                    node.lines[n].geometry.vertices[0] = point.vec;
+                }
+            });
+        });
+    };
+
+    // -----
+    var width = window.innerWidth;
+    var height = window.innerHeight;
+
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+    var renderer = new THREE.WebGLRenderer();
+
+    var boid;
+    var plane;
+
+    function init() {
+        setUpWorld();
+        setUpBoid(22);
+        plane = new THREE.Mesh(
+            new THREE.PlaneGeometry(20, 20, 10, 10),
+            new THREE.MeshBasicMaterial({
+                color: 0x343434,
+                wireframe: true
+            })
+        );
+        plane.position.set(0, 0, 0);
+        scene.add(plane);
+    }
+
+    function setUpWorld() {
+        // cam
+        camera.position.set(0, -20, 10);
+        camera.lookAt(scene.position);
+        camera.angle = 0.01;
+        scene.add(camera);
+        // renderer
+        renderer.setSize(width, height);
+        renderer.setClearColor(0x111111)
+        document.body.appendChild(renderer.domElement);
+    }
+
+    function setUpBoid(segmentsCount) {
+        var nodes = [];
+        for (var i = 0; i < segmentsCount; i += 1) {
+            var segmentLength = 10 + Math.round(Math.random() * 25);
+            var points = [];
+            for (var n = 0; n < segmentLength; n += 1) {
+                var point = new Point({
+                    x: 0,
+                    y: 0,
+                    z: 0
+                });
+                points.push(point);
+            }
+            var node = new Node(points);
+            nodes.push(node);
+        }
+        boid = new Boid(nodes);
+        boid.init(scene);
+    }
+
+    function renderFrame() {
+        renderer.render(scene, camera);
+        boid.update();
+        plane.rotation.z += 0.005;
+    }
+
+    return {
+        init: init,
+        renderFrame: renderFrame
+    };
+
+
+})(THREE);
+
+BoidAnimation.init();
+
+(function renderFrame() {
+    window.requestAnimationFrame(renderFrame);
+    BoidAnimation.renderFrame();
+})();
+</script>
+</body>
+</html>
