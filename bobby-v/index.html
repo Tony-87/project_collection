@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script> -->
+    <!-- <script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts.js"></script> -->
+    <style>
+        #main {
+            width: 800px;
+            height: 600px;
+            border: solid 1px #f00;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main"></div>
+    <button onclick="toPrevLevel()">返回上一级</button>
+    <script src="./plugins/jquery.min.js"></script>
+    <script src="./plugins/echarts.js"></script>
+    <script src="./map/json/citys/china-main-city-map.js"></script>
+
+    <script>
+        var provinceDic = {
+            "安徽": "anhui",
+            "澳门": "aomen",
+            "北京": "beijing",
+            "重庆": "chongqing",
+            "福建": "fujian",
+            "甘肃": "gansu",
+            "广东": "guangdong",
+            
+            "天津": "tianjin",
+            "河北": "hebei",
+            "山西": "shanxi",
+            "内蒙古": "neimenggu",
+            "辽宁": "liaoning",
+            "吉林": "jilin",
+            "黑龙江": "heilongjiang",
+            "上海": "shanghai",
+            "江苏": "jiangsu",
+            "浙江": "zhejiang",
+            
+           
+            "江西": "jiangxi",
+            "山东": "shandong",
+            "河南": "henan",
+            "湖北": "hubei",
+            "湖南": "hunan",
+           
+            "广西": "guangxi",
+            "海南": "hainan",
+            
+            "四川": "sichuan",
+            "贵州": "guizhou",
+            "云南": "yunnan",
+            "西藏": "xizang",
+            "陕西": "shanxi1",
+           
+            "青海": "qinghai",
+            "宁夏": "ningxia",
+            "新疆": "xinjiang",
+            "台湾": "taiwan",
+            "香港": "xianggang",
+           
+            "钓鱼岛": "diaoyudao"
+        }
+
+         
+    </script>
+
+    <script>
+        var mapLevel = 0;
+        var prevName = ''
+        var chart = echarts.init(document.getElementById('main'));
+
+
+        chart.on('click', function (mapBlock) {
+            console.log(mapBlock);
+            var blockName = mapBlock.name
+            if (mapLevel == 0) {
+                mapLevel = 1;
+                loadMap('province/', provinceDic[blockName])
+                prevName = blockName;
+                return;
+            }
+            if (mapLevel == 1) {
+                mapLevel = 2;
+                loadMap('citys/', cityMap[blockName])
+                return;
+            }
+        })
+
+
+
+        loadMap('', 'china')
+
+
+        function loadMap(mapType, mapName, callback) {
+            $.get('./map/json/' + mapType + mapName + '.json', function (mapJson) {
+                echarts.registerMap(mapName, mapJson);
+                // callback(mapName)
+                chart.setOption({
+                    series: [{
+                        type: 'map',
+                        map: mapName
+                    }]
+                });
+            });
+        }
+
+        function toPrevLevel() {
+            if (mapLevel == 2) {
+                mapLevel = 1
+                loadMap('province/', provinceDic[prevName])
+                return;
+            }
+            if (mapLevel == 1) {
+                mapLevel = 0
+                loadMap('', 'china')
+                return;
+            }
+        }
+
+    </script>
+</body>
+
+</html>
